@@ -612,7 +612,6 @@ h3 {
 }
 
 .problem-grid article {
-  min-height: 220px;
   padding: 1.35rem;
   border-radius: var(--radius-md);
 }
@@ -1395,22 +1394,80 @@ h3 {
   color: var(--ink);
 }
 
+body.nav-menu-open {
+  overflow: hidden;
+}
+
+body.nav-menu-open::before {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(19, 32, 28, 0.35);
+  content: "";
+}
+
 @media (max-width: 980px) {
+  .site-header,
+  .page-header {
+    overflow: visible;
+  }
+
+  .site-header > .nav,
+  .page-header > .nav {
+    margin-top: 0;
+    padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
+    padding-bottom: 0.75rem;
+  }
+
+  .site-header > .hero,
+  .page-header > .page-hero {
+    margin-top: 0;
+  }
+
+  .site-header .hero-content,
+  .page-header .page-hero > .eyebrow:first-child {
+    margin-top: 0;
+  }
+
   .nav {
+    position: relative;
+    z-index: 100;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 
   .nav-toggle {
     display: inline-flex;
+    position: relative;
+    z-index: 102;
+    flex-shrink: 0;
+  }
+
+  .nav .brand-mark {
+    width: 4.25rem;
+    height: 4.25rem;
+  }
+
+  .nav .brand {
+    position: relative;
+    z-index: 102;
+    margin-left: -0.75rem;
+  }
+
+  .nav .brand > span {
+    margin-left: -0.35rem;
   }
 
   .nav-links {
-    display: none;
-    order: 3;
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
+    display: flex;
+    position: absolute;
+    top: calc(100% + 0.25rem);
+    right: 0;
+    left: 0;
+    visibility: hidden;
+    width: auto;
+    max-height: min(70vh, calc(100dvh - 7rem));
+    margin: 0;
     flex-direction: column;
     gap: 0.15rem;
     padding: 0.5rem;
@@ -1418,10 +1475,22 @@ h3 {
     border-radius: var(--radius-md);
     background: var(--white);
     box-shadow: var(--shadow);
+    opacity: 0;
+    overflow-y: auto;
+    pointer-events: none;
+    transition:
+      opacity 180ms ease,
+      visibility 180ms ease,
+      transform 180ms ease;
+    transform: translateY(-0.15rem);
+    z-index: 101;
   }
 
   .nav-links.is-open {
-    display: flex;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .nav-links a {
