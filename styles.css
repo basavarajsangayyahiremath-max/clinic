@@ -89,17 +89,6 @@ select {
   margin-top: -0.35rem;
 }
 
-.site-header::after {
-  position: absolute;
-  right: -9rem;
-  bottom: -12rem;
-  width: 28rem;
-  height: 28rem;
-  content: "";
-  border: 1px solid rgba(82, 113, 100, 0.18);
-  border-radius: 999px;
-}
-
 .section {
   width: min(100%, var(--page-max));
   max-width: var(--page-max);
